@@ -1,0 +1,15 @@
+{
+  "name": "ems-monorepo",
+  "version": "1.0.0",
+  "description": "Employee Management System Monorepo",
+  "scripts": {
+    "install:all": "npm install --legacy-peer-deps && npm install --prefix backend --legacy-peer-deps && npm install --prefix frontend --legacy-peer-deps",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "seed": "npx ts-node --project backend/tsconfig.json backend/src/seed.ts",
+    "test": "npm run test --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
