@@ -1,6 +1,6 @@
-// In Docker the nginx config proxies /api/* to backend.
-// In local dev, Vite proxies /api to localhost:5000 (configured in vite.config.ts).
-const BASE_URL = '/api';
+// In production, this points to the deployed backend (set via VITE_API_URL env var).
+// In local dev, Vite proxies /api to localhost:5000 via vite.config.ts.
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 interface RequestOptions extends RequestInit {
   body?: any;

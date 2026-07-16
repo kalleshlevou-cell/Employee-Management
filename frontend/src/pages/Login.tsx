@@ -37,7 +37,7 @@ export const Login: React.FC = () => {
       const token = localStorage.getItem('ems_token');
       if (token) {
         // Read decoded role by fetching the me profile
-        const me = await fetch('/api/auth/me', {
+        const me = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         }).then((res) => res.json());
 
