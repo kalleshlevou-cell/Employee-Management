@@ -25,6 +25,16 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Middleware to ensure DB connection is active (critical for serverless environment)
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error('Database connection failed in serverless request handler:', err);
+  }
+  next();
+});
+
 // Health Check
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', time: new Date() });
@@ -58,4 +68,8 @@ const startServer = async () => {
   });
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
